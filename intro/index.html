@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+ "http://www.w3.org/TR/html4/loose.dtd">
+<html><!--あいう-->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<title>timeline.js introduction</title>
+<script type="text/javascript" src="../dependency/jsdeferred.js" charset="utf-8"></script>
+<script type="text/javascript" src="../timeline.js" charset="utf-8"></script>
+<script type="text/javascript" src="./jquery-1.8.2.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="./test.js" charset="utf-8"></script>
+<style type="text/css">
+div.code {
+    margin: 5px;
+    padding: 5px;
+    color: #FFF;
+    background-color: #000;
+    font-family: '"MS Gothic","Osaka-Mono","monospace"';
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0px;
+}
+</style>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+//var _gaq = _gaq || [];
+//_gaq.push(['_setAccount', 'UA-1748595-2']);
+//_gaq.push(['_trackPageview']);
+//(function() {
+//var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+//ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+//var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+//})();
+</script>
+<!-- /Google Analytics -->
+
+</head>
+<body>
+
+<h1>timeline.js の紹介</h1>
+
+<h2>はじめに</h2>
+<div>
+<ul>
+    <li>複数の非同期処理を連携するためのJavaScriptライブラリです</li>
+    <li>非同期処理同士の分離性を高めることと、連携状況をわかり易くすることを主な目的としています</li>
+    <li>Flashのタイムライン編集機能をヒントにした実装をしています</li>
+    <li><a href="http://cho45.stfuawsc.com/jsdeferred/" target="_blank">JSDeferred</a>に激しく依存しています</li>
+    <li>動作はWindows7のIE8/Firefox3/Chromeのみで確認していますが、多分Macでも動くと思います</li>
+</ul>
+</div>
+
+<h2>ダウンロード・インストール</h2>
+<div>
+<ul>
+    <li>1. <a href="http://cho45.stfuawsc.com/jsdeferred/" target="_blank">JSDeferredのダウンロード</a> をします</li>
+    <li>2. <a href="../timeline.js">timeline.jsのダウンロード</a> をします</li>
+    <li>3. jsdeferred.js を先に timeline.js を後に読み込みます、このページのHTMLソースを参考にして下さい</li>
+</ul>
+</div>
+
+<h2>マニュアル</h2>
+<div>
+<ul>
+    <li>マニュアルは無いので、まずは <a href="./test.js">当ページで読み込んでいるサンプルコード</a> をご覧下さい</li>
+</ul>
+</div>
+
+<h2>基本的な使い方</h2>
+<ul>
+    <li>クリックするとコンソールに結果が出力されます</li>
+    <li><a id="basic_usage-1" href="javascript:void(0)">最も基本的な使い方</a>
+        <div class="code">
+            <div>var timeline = Timeline.factory(再生時間);</div>
+            <div>var layer = timeline.createLayer();</div>
+            <div>layer.onstart(コールバック関数);</div>
+            <div>layer.on(開始する時間:ミリ秒);</div>
+            <div>timeline.onfinish(コールバック関数);</div>
+            <div>timeline.start();</div>
+        </div>
+    </li>
+    <li><a id="basic_usage-2" href="javascript:void(0)">開始条件にレイヤ終了を指定</a>
+        <div class="code">
+            <div>layer.after(自分の前に実行するlayer);</div>
+            <div>layer.wait(実行前の待機時間:ミリ秒);</div>
+        </div>
+    </li>
+    <li><a id="basic_usage-3" href="javascript:void(0)">chainを使った一括設定</a>
+        <div class="code">
+            <div>layer1.chain(layer2, layer3, ..);</div>
+        </div>
+    </li>
+    <li><a id="basic_usage-4" href="javascript:void(0)">複数レイヤを終了条件へ指定</a></li>
+    <li><a id="basic_usage-errors" href="javascript:void(0)">ありがちな設定間違いとエラー確認</a></li>
+</ul>
+
+<h2>JSDeferredを知るとより便利</h2>
+<ul>
+    <li><a id="with_jsdeferred-1" href="javascript:void(0)">レイヤ内で終了を遅延させる</a></li>
+    <li><a id="with_jsdeferred-2" href="javascript:void(0)">複数のタイムラインを同期</a></li>
+</ul>
+
+<h2>デモ</h2>
+<ul>
+    <li><a id="demo-nazo" href="javascript:void(0)">謎の利用例</a></li>
+    <li><a id="demo-movie" href="javascript:void(0)">昔の2D-RPGゲームムービー的利用例</a></li>
+</ul>
+
+<h2>更新履歴</h2>
+<ul>
+    <li>[2012-05-04] v0.2.0
+        <ul>
+            <li>createLayer時に直接コールバック関数を渡せるようにした</li>
+            <li>全レイヤ強制終了をするcancelを定義</li>
+            <li>after時に自身を登録したらエラーになるようにした</li>
+        </ul>
+    </li>
+</ul>
+
+<h2>超個人的TODOメモ</h2>
+<ul>
+    <li>chain時にリストを指定できるようにする、中で展開</li>
+    <li>実際使うと、結合時にレイヤがローカル変数で多数存在する状況になるのでどうにかしたい、上記もその一環<br />
+        createLayer時にキーを付けて、短縮記法でマージとか？　無意味か</li>
+    <li>終了通知がコールバックな関数はlayer.onstart内でnew Deferredを毎回書く必要があるけど、これをどうにかしたい。無理かも</li>
+    <li>未登録レイヤがあってもエラーにしなくていいんじゃね？</li>
+</ul>
+
+<h2>提供元</h2>
+<ul>
+    <li><a href="http://kjirou.sakura.ne.jp/mt/">それなりブログ</a>
+        (<a href="http://kjirou.sakura.ne.jp/mt/2012/02/timelinejs_1.html">関連エントリ</a>)</li>
+    <li><a href="http://kjirou.net/">kjirou.net</a></li>
+</ul>
+
+</body>
+</html>
